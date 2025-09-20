@@ -1,4 +1,4 @@
-# 🚦 Pedestrian Traffic Light
+#  Pedestrian Traffic helper
 
 ## Overview
 This project is a **traffic light system with pedestrian crossing support**, built with an **ESP32**, an **OLED display**, ultrasonic sensor and photoresistor
