@@ -92,19 +92,25 @@ void loop() {
 
     // If there are cars
     if (distance < 30){
-      // เปิดไฟgreenและนับถอยหลัง 3 วิ
-      digitalWrite(greenPin, HIGH);
-      for (int i = globalTime; i > 0; i--) {
-        display.clearDisplay();
-        display.setTextSize(2);
-        display.setCursor(20, 20);
-        display.print("Green ");
-        display.print(i);
-        display.display();
-        delay(1000);
-      }
-      digitalWrite(greenPin, LOW);
+      globtime = 45;
     }
+    // otherwise....
+    else{
+      globtime = 3;
+    }
+
+    // เปิดไฟgreenและนับถอยหลัง แล้วแต่เวลาที่ตั้งไว้
+    digitalWrite(greenPin, HIGH);
+    for (int i = globtime; i > 0; i--) {
+      display.clearDisplay();
+      display.setTextSize(2);
+      display.setCursor(20, 20);
+      display.print("Green ");
+      display.print(i);
+      display.display();
+      delay(1000);
+    }
+    digitalWrite(greenPin, LOW);
 
     // เปิดไฟเหลืองและนับถอยหลัง 3 วิ
     digitalWrite(greenPin, LOW);
