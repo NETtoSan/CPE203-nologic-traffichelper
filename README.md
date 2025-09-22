@@ -50,12 +50,12 @@ This makes it behave more like a real-world smart pedestrian crossing.
 ## How It Works
 1. **Normal Mode** → Cars have **Green light**.  
 2. **Pedestrian presses button**:  
-   - If a car is very close (<30 cm), green light stays on for 3 seconds.  
+   - If a car is very close (<30 cm), green light stays on for 45 seconds.  
    - Then **Yellow light** turns on for 3 seconds.  
    - Then **Red light** for cars.  
 3. **Crossing Mode** → Pedestrians can cross:  
-   - **Daytime (bright)**: 15 seconds crossing time.  
-   - **Nighttime (dark)**: 5 seconds crossing time.  
+   - **Daytime (bright)**: 25 seconds crossing time.  
+   - **Nighttime (dark)**: 15 seconds crossing time.  
    - Countdown is shown on OLED (*Cross: X*).  
 4. **After countdown ends** → Back to **Green light for cars**, OLED shows *Go Car*.  
 
