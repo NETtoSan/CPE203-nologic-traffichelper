@@ -24,7 +24,7 @@ const int distanceThreshold = 100;  // cm ถ้ามีรถใกล้
 const int ldrThreshold = 1000;      // ค่าประมาณว่ามืด (ขึ้นกับ LDR จริงๆ)
 const int crossDayTime = 15;        // เวลากลางวัน
 const int crossNightTime = 5;      // เวลากลางคืน
-const int globalTime = 3;           // เวลาไฟเหลือง 3 วิ
+volatile int globalTime = 0;           // เวลาไฟเหลือง 3 วิ
 
 // ---------------- Variables ----------------
 bool crossingActive = false;
@@ -91,17 +91,17 @@ void loop() {
   if (buttonState == LOW && !crossingActive) {
 
     // If there are cars
-    if (distance < 30){
-      globtime = 45;
+    if (distance < 10){
+      globalTime = 45;           // เวลาไฟเหลือง 3 วิ
     }
     // otherwise....
     else{
-      globtime = 3;
+      globalTime = 3;
     }
 
     // เปิดไฟgreenและนับถอยหลัง แล้วแต่เวลาที่ตั้งไว้
     digitalWrite(greenPin, HIGH);
-    for (int i = globtime; i > 0; i--) {
+    for (int i = globalTime; i > 0; i--) {
       display.clearDisplay();
       display.setTextSize(2);
       display.setCursor(20, 20);
@@ -115,7 +115,7 @@ void loop() {
     // เปิดไฟเหลืองและนับถอยหลัง 3 วิ
     digitalWrite(greenPin, LOW);
     digitalWrite(yellowPin, HIGH);
-    for (int i = globalTime; i > 0; i--) {
+    for (int i = 3; i > 0; i--) {
       display.clearDisplay();
       display.setTextSize(2);
       display.setCursor(20, 20);
@@ -132,7 +132,8 @@ void loop() {
     // กำหนดเวลาให้คนข้าม
     if (ldrValue < ldrThreshold) {
       crossDuration = crossNightTime;  // กลางคืน
-    } else {
+    } 
+    else {
       crossDuration = crossDayTime;    // กลางวัน
     }
 
@@ -161,10 +162,13 @@ void loop() {
       // เปลี่ยนกลับเป็นไฟเขียว
       digitalWrite(redPin, LOW);
       digitalWrite(greenPin, HIGH);
-
       display.clearDisplay();
-      display.setCursor(20, 20);
-      display.println("Go Car");
+      display.drawRect(20, 30, 80, 20, SSD1306_WHITE);    // car body
+      display.fillRect(30, 40, 60, 10, SSD1306_WHITE);    // car lower body
+      display.fillCircle(35, 55, 5, SSD1306_WHITE);       // left wheel
+      display.fillCircle(93, 55, 5, SSD1306_WHITE);       // right wheel
+      display.setCursor(35, 10);
+      display.println("Car go");
       display.display();
     }
   }
